@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Edu+SA+Beginner:wght@400;500;600&family=Roboto:ital,wght@1,300&display=swap');
+
 *{
     margin: 0;
     padding:0;
     box-sizing: border-box;
+    font-family:'Edu SA Beginner', sans-serif;
 }
 
 body{
@@ -94,9 +97,10 @@ form{
     border-radius:5px;
     margin:30px auto;
     display: block;
-    /* display:none; */
+    display:none;
     
 }
+
 
 @media screen and (max-width:768px){
     .search-results{
