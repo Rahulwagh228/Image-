@@ -1,59 +1,55 @@
-const accessKey = "ANRxdAVaJTBI1DUhB7XlOP_wG1K9Atlh3o0SVEYKsnY"
+const accessKey = "ANRxdAVaJTBI1DUhB7XlOP_wG1K9Atlh3o0SVEYKsnY";
 
-const formE1 = document.querySelector("form")
-const inputE1 = document.getElementById("search-input")
-const searchResult = document.getElementsByClassName("search-results")
-const showMore = document.getElementById("show-more-button")
+const formE1 = document.querySelector("form");
+const inputE1 = document.getElementById("search-input");
+const searchResult = document.querySelector(".search-results"); // Use querySelector instead of getElementsByClassName
+const showMore = document.getElementById("show-more-button");
 
-let InputData = ""
+let InputData = "";
 let page = 1;
 
-async function SearchImages(){
+async function SearchImages() {
     InputData = inputE1.value;
-    url = `https://api.unsplash.com/search/photos?page=${page}&query=${InputData}&client_id=${accessKey}`;
+    const url = `https://api.unsplash.com/search/photos?page=${page}&query=${InputData}&client_id=${accessKey}`;
 
-    // console.log(url);
+    const response = await fetch(url);
+    const data = await response.json();
 
-    const response = await fetch(url)
-    const data = await response.json()
+    const results = data.results;
 
-    const results = data.results
-
-    if(page===1){
-        searchResult.innerHTML = ""
+    if (page === 1) {
+        searchResult.innerHTML = ""; // Clear previous results
     }
 
-    results.map((e)=>{
+    results.forEach((e) => {
         const imageWrapper = document.createElement('div');
         imageWrapper.classList.add("search-result");
-        const image = document.createElement("img");
-        // image.src = results.urls.small
-        image.alt = results.alt_description;
+        const image = document.createElement('img');
+        image.alt = e.alt_description;
+        image.src = e.urls.small; // You need to specify the image source
         const imageLink = document.createElement("a");
-        imageLink.href = results.link.html;
+        imageLink.href = e.links.html; // Use links.html for the image link
         imageLink.target = "_blank";
-        imageLink.textContent = result.alt_description;
+        imageLink.innerText = e.alt_description; // Use innerText instead of textContent
 
         imageWrapper.appendChild(image);
         imageWrapper.appendChild(imageLink);
-        searchResult.appendChild(imageWrapper);
-
+        searchResult.appendChild(imageWrapper); // Append to the search result container
     });
 
-    page++
+    page++;
 
-    if(page > 1){
-        showMore.style.display = "block"
+    if (page > 1) {
+        showMore.style.display = "block";
     }
-
 }
 
-formE1.addEventListener("submit", (event)=>{
-    event.preventDefault()
+formE1.addEventListener("submit", (event) => {
+    event.preventDefault();
     page = 1;
-    SearchImages()
-})
+    SearchImages();
+});
 
-showMore.addEventListener("click", ()=>{
-    SearchImages()
-})
+showMore.addEventListener("click", () => {
+    SearchImages();
+});
