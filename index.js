@@ -1,4 +1,4 @@
-// const accessKey = process.env.accessKey
+const accessKey = "ANRxdAVaJTBI1DUhB7XlOP_wG1K9Atlh3o0SVEYKsnY";
 
 const formE1 = document.querySelector("form");
 const inputE1 = document.getElementById("search-input");
@@ -10,7 +10,7 @@ let page = 1;
 
 async function SearchImages() {
     InputData = inputE1.value;
-    const url = `https://api.unsplash.com/search/photos?page=${page}&query=${InputData}&client_id=ANRxdAVaJTBI1DUhB7XlOP_wG1K9Atlh3o0SVEYKsnY`;
+    const url = `https://api.unsplash.com/search/photos?page=${page}&query=${InputData}&client_id=${accessKey}`;
 
     const response = await fetch(url);
     const data = await response.json();
